@@ -5,7 +5,7 @@ const getArgs = require('./arguments');
 const Jimp = require('jimp');
 
 const args = getArgs();
-const dir = `${args.folder}/` ?? './';
+const dir = `${args.folder}` ?? './';
 const pixel = args.pixel ? Number(args.pixel) : 50;
 
 function readFiles(dirname, onFileContent, onError) {
@@ -23,11 +23,11 @@ function readFiles(dirname, onFileContent, onError) {
 function main() {
     readFiles(dir, async (filename) => {
 
-        let file = (`${dir}${filename}`);
+        let file = (`${dir}/${filename}`);
         const image = await Jimp.read(file);
     
         image.pixelate(pixel)
-            .write(`pixel/p-${Date.now()}.png`);
+            .write(`${dir}/pixel/p-${Date.now()}.png`);
     
     }, (err) => {
       throw err;
